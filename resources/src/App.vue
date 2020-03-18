@@ -12,13 +12,13 @@
         <button @click="newNote" class="bg-success btn btn-new-note">
           + Note Baru
         </button>
-        <ListNotes :propNotes="notes" :propEditNote="editNote"></ListNotes>
+        <ListNotes :propEditNote="editNote"></ListNotes>
       </div>
     </div>
     <!-- END LIST -->
     <!-- START FORM -->
     <div class="kanan">
-      <FormNotes :propSaveNote="saveNote" :propRemoveNote="removeNote" :propUpdateNote="updateNote" :propDataForm="dataForm"></FormNotes>
+      <FormNotes :propSaveNote="saveNote" :propRemoveNote="removeNote" :propUpdateNote="updateNote" ></FormNotes>
 
     </div>
     <!-- END FORM -->
@@ -33,8 +33,6 @@
     name: 'App',
     data: function(){
       return { 
-        dataForm :{},
-        notes: []
       }
     },
     components: {
@@ -45,11 +43,7 @@
       newNote() {
         this.dataForm = {id:0, title:'', description:''};
       },
-      editNote(id){
-        // console.log('app'+id);
-        this.dataForm = this.notes.find(note => note.id === id);
-        // console.log(this.dataForm);
-      },
+      
       saveNote(title, description) {
         let newId = 0;
         if(this.notes.length === 0)
