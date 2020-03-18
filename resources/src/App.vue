@@ -34,7 +34,7 @@
     data: function(){
       return { 
         dataForm :{},
-        notes: []
+        notes: [{id:1, title:"raska", description:"fefeofnmeflneo"}]
       }
     },
     components: {
@@ -43,11 +43,12 @@
     },
     methods: {
       newNote() {
-        this.dataForm = {id:0, title:'', description:''};
+        this.dataForm = {id:0, title:'', description:'', mode:'save'};
       },
       editNote(id){
         // console.log('app'+id);
         this.dataForm = this.notes.find(note => note.id === id);
+        this.dataForm.mode = 'update';
         // console.log(this.dataForm);
       },
       saveNote(title, description) {
