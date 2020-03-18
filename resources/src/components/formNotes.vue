@@ -37,7 +37,8 @@
                               description: this.description
                          }
                     if(this.id === 0){
-                         this.propSaveNote(this.title, this.description);
+                         this.$root.$emit('emitSave',data);
+
                     }
                     else{
                          data.id = this.id;

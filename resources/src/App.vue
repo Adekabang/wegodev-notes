@@ -12,13 +12,13 @@
         <button @click="newNote" class="bg-success btn btn-new-note">
           + Note Baru
         </button>
-        <ListNotes :propEditNote="editNote"></ListNotes>
+        <ListNotes></ListNotes>
       </div>
     </div>
     <!-- END LIST -->
     <!-- START FORM -->
     <div class="kanan">
-      <FormNotes :propSaveNote="saveNote"></FormNotes>
+      <FormNotes></FormNotes>
 
     </div>
     <!-- END FORM -->
@@ -41,20 +41,11 @@
     },
     methods: {
       newNote() {
-        this.dataForm = {id:0, title:'', description:''};
+        let dataForm = {id:0, title:'', description:''};
+        this.$root.$emit('emitForm', dataForm);
+
       },
       
-      saveNote(title, description) {
-        let newId = 0;
-        if(this.notes.length === 0)
-          newId = 1;
-        else
-          newId = this.notes[this.notes.length-1].id+1;
-
-        let newNote = { 'id': newId,'title' : title, 'description' : description}
-        this.notes.push(newNote);
-        this.editNote(newId);
-      }
     }
   }
 </script>
