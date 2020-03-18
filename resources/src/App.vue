@@ -12,13 +12,13 @@
         <button @click="newNote" class="bg-success btn btn-new-note">
           + Note Baru
         </button>
-        <ListNotes :propNotes="notes" :propEditNote="editNote"></ListNotes>
+        <ListNotes></ListNotes>
       </div>
     </div>
     <!-- END LIST -->
     <!-- START FORM -->
     <div class="kanan">
-      <FormNotes :propSaveNote="saveNote" :propRemoveNote="removeNote" :propUpdateNote="updateNote" :propDataForm="dataForm"></FormNotes>
+      <FormNotes></FormNotes>
 
     </div>
     <!-- END FORM -->
@@ -32,10 +32,7 @@
   export default {
     name: 'App',
     data: function(){
-      return { 
-        dataForm :{},
-        notes: [{id:1, title:"raska", description:"fefeofnmeflneo"}]
-      }
+      return {}
     },
     components: {
       ListNotes,
@@ -43,35 +40,10 @@
     },
     methods: {
       newNote() {
-        this.dataForm = {id:0, title:'', description:'', mode:'save'};
+        let dataForm = {id:0, title:'', description:'', mode:'save'};
+        this.$root.$emit('emitForm', dataForm);
       },
-      editNote(id){
-        // console.log('app'+id);
-        this.dataForm = this.notes.find(note => note.id === id);
-        this.dataForm.mode = 'update';
-        // console.log(this.dataForm);
-      },
-      saveNote(title, description) {
-        let newId = 0;
-        if(this.notes.length === 0)
-          newId = 1;
-        else
-          newId = this.notes[this.notes.length-1].id+1;
-
-        let newNote = { 'id': newId,'title' : title, 'description' : description}
-        this.notes.push(newNote);
-        this.editNote(newId);
-      },
-      updateNote(id,title, description) {
-        let noteIndex = this.notes.findIndex(note => note.id === id);
-        this.notes[noteIndex].title = title;
-        this.notes[noteIndex].description = description;
-      },
-      removeNote(id) {
-        let noteIndex = this.notes.findIndex(note => note.id === id);
-        this.notes.splice(noteIndex,1);
-
-      }
+      
     }
   }
 </script>

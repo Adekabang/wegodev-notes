@@ -21,15 +21,6 @@
           props: {
                propSaveNote: {
                     type: Function
-               },
-               propUpdateNote: {
-                    type: Function
-               },
-               propRemoveNote: {
-                    type: Function
-               },
-               propDataForm: {
-                    type: Object
                }
           },
           data: function () {
@@ -42,29 +33,42 @@
           },
           methods: {
                submitSave() {
-                         this.propSaveNote(this.title, this.description);
+                    if(this.title != '' && this.description != ''){
+                         let data = {
+                              title: this.title,
+                              description: this.description
+                              }
+                         this.$root.$emit('emitSave',data);
+                    }
                },
                submitUpdate(){
-                    this.propUpdateNote(this.id, this.title, this.description);
+                    let data = {
+                         id: this.id,
+                         title: this.title,
+                         description: this.description
+                         }
+                    this.$root.$emit('emitUpdate',data);
 
                },
                submitRemove(){
-                    this.propRemoveNote(this.id);
+                    let data = {id:this.id}
+                    this.$root.$emit('emitRemove', data);
                     this.resetInput();
                },
                resetInput(){
                     this.id = 0,
                     this.title = '',
-                    this.description = ''
+                    this.description = '',
+                    this.mode = 'save'
                } 
           },
-          watch :{
-               propDataForm: function(note){
-                    this.id = note.id;
-                    this.title = note.title;
-                    this.description = note.description;
-                    this.mode = note.mode;
-               }
+          mounted(){
+               this.$root.$on('emitForm',data => {
+                    this.id = data.id;
+                    this.title = data.title;
+                    this.description = data.description;
+                    this.mode = data.mode;
+               });
           }
      }
 </script>
