@@ -20,9 +20,6 @@
           props: {
                propSaveNote: {
                     type: Function
-               },
-               propUpdateNote: {
-                    type: Function
                }
           },
           data: function () {
@@ -35,11 +32,18 @@
           methods: {
                submitNote(e) {
                     e.preventDefault();
+                    let data = {
+                              title: this.title,
+                              description: this.description
+                         }
                     if(this.id === 0){
                          this.propSaveNote(this.title, this.description);
                     }
-                    else
-                         this.propUpdateNote(this.id, this.title, this.description);
+                    else{
+                         data.id = this.id;
+                         this.$root.$emit('emitUpdate',data);
+
+                    }
                },
                submitRemove(){
                     let data = {id:this.id}

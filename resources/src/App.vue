@@ -18,7 +18,7 @@
     <!-- END LIST -->
     <!-- START FORM -->
     <div class="kanan">
-      <FormNotes :propSaveNote="saveNote"  :propUpdateNote="updateNote" ></FormNotes>
+      <FormNotes :propSaveNote="saveNote"></FormNotes>
 
     </div>
     <!-- END FORM -->
@@ -54,12 +54,7 @@
         let newNote = { 'id': newId,'title' : title, 'description' : description}
         this.notes.push(newNote);
         this.editNote(newId);
-      },
-      updateNote(id,title, description) {
-        let noteIndex = this.notes.findIndex(note => note.id === id);
-        this.notes[noteIndex].title = title;
-        this.notes[noteIndex].description = description;
-      },
+      }
     }
   }
 </script>
