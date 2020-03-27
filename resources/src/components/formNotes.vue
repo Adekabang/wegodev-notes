@@ -49,7 +49,7 @@
                     )
                },
                submitUpdate(){
-                   let params = new URLSearchParams();
+                    let params = new URLSearchParams();
                     params.append('id', this.id)
                     params.append('title', this.title)
                     params.append('description', this.description)
@@ -66,8 +66,16 @@
 
                },
                submitRemove(){
-                    let data = {id:this.id}
-                    this.$root.$emit('emitRemove', data);
+                    let params = new URLSearchParams();
+                    params.append('id', this.id)
+                    axios.post('http://localhost/wegodev-notes/api/note/delete', params)
+                         .then(response =>{
+                              let data = {
+                                   id: response.data.id
+                                   }
+                              this.$root.$emit('emitRemove', data);
+                         }
+                    )
                     this.resetInput();
                },
                resetInput(){
